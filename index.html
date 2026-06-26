@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Who's Watching You? — Gilbert ALPR Action</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void:   #0A0A10;
+  --navy:   #10101E;
+  --cyan:   #00F0FF;
+  --pink:   #FF2D6B;
+  --yellow: #FFE600;
+  --white:  #F0EDE8;
+  --muted:  #6A6A8A;
+  --card-bg:#12121F;
+  --card-border: rgba(255,255,255,.08);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--void);
+  color: var(--white);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── TICKER ─────────────────────────────────────────── */
+.ticker {
+  background: var(--pink);
+  color: #fff;
+  font-family: 'Space Mono', monospace;
+  font-size: .65rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 7px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  z-index: 10;
+}
+.ticker-inner {
+  display: inline-block;
+  animation: scroll-ticker 22s linear infinite;
+}
+@keyframes scroll-ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── HEADER ─────────────────────────────────────────── */
+header {
+  position: relative;
+  padding: 4rem 1.5rem 3rem;
+  text-align: center;
+  overflow: hidden;
+  border-bottom: 2px solid rgba(0,240,255,.15);
+}
+
+/* glow blobs */
+header::before {
+  content: '';
+  position: absolute;
+  top: -80px; left: 50%;
+  transform: translateX(-50%);
+  width: 600px; height: 400px;
+  background: radial-gradient(ellipse, rgba(255,45,107,.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+header::after {
+  content: '';
+  position: absolute;
+  bottom: -60px; left: 30%;
+  width: 400px; height: 300px;
+  background: radial-gradient(ellipse, rgba(0,240,255,.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.header-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: .68rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.header-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4rem, 14vw, 9rem);
+  line-height: .9;
+  position: relative;
+  z-index: 1;
+  margin-bottom: .5rem;
+}
+
+.header-title .line-1 { color: var(--white); display: block; }
+.header-title .line-2 { color: var(--pink); display: block; text-shadow: 0 0 40px rgba(255,45,107,.5); }
+.header-title .line-3 { color: var(--white); display: block; }
+
+.header-sub {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+  color: var(--yellow);
+  letter-spacing: .06em;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 24px rgba(255,230,0,.4);
+  position: relative;
+  z-index: 1;
+}
+
+.header-body {
+  font-size: .95rem;
+  color: var(--muted);
+  max-width: 560px;
+  margin: 0 auto 2rem;
+  position: relative;
+  z-index: 1;
+  line-height: 1.7;
+}
+
+.ascii-eye {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(.42rem, 1.3vw, .72rem);
+  line-height: 1.25;
+  color: var(--cyan);
+  text-shadow: 0 0 14px rgba(0,240,255,.55);
+  white-space: pre;
+  display: block;
+  margin: 0 auto 1.1rem;
+  position: relative;
+  z-index: 1;
+  letter-spacing: .04em;
+}
+
+/* ── EVIDENCE STRIP ─────────────────────────────────── */
+.evidence-strip {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1px;
+  background: rgba(255,255,255,.05);
+  border-top: 1px solid rgba(255,255,255,.06);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+.ev-stat {
+  flex: 1;
+  min-width: 140px;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  background: var(--navy);
+  position: relative;
+}
+
+.ev-stat::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 30px; height: 2px;
+}
+
+.ev-stat.c::after { background: var(--cyan); }
+.ev-stat.p::after { background: var(--pink); }
+.ev-stat.y::after { background: var(--yellow); }
+
+.ev-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3.2rem;
+  line-height: 1;
+  display: block;
+  margin-bottom: .2rem;
+}
+
+.ev-stat.c .ev-num { color: var(--cyan); }
+.ev-stat.p .ev-num { color: var(--pink); }
+.ev-stat.y .ev-num { color: var(--yellow); }
+
+.ev-label {
+  font-family: 'Space Mono', monospace;
+  font-size: .6rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: .4rem;
+}
+
+.ev-desc {
+  font-size: .78rem;
+  color: #4A4A6A;
+  line-height: 1.5;
+}
+
+/* ── THE QUESTION ───────────────────────────────────── */
+.question-section {
+  max-width: 760px;
+  margin: 3.5rem auto;
+  padding: 0 1.5rem;
+  text-align: center;
+}
+
+.question-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: .65rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.question-box {
+  border: 1.5px solid var(--yellow);
+  border-radius: 4px;
+  padding: 1.75rem 2rem;
+  position: relative;
+  background: rgba(255,230,0,.03);
+}
+
+.question-box::before {
+  content: '// THE QUESTION //';
+  position: absolute;
+  top: -10px; left: 50%;
+  transform: translateX(-50%);
+  background: var(--void);
+  font-family: 'Space Mono', monospace;
+  font-size: .6rem;
+  letter-spacing: .14em;
+  color: var(--yellow);
+  padding: 0 10px;
+  white-space: nowrap;
+}
+
+.question-box p {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1.65;
+  color: var(--white);
+}
+
+/* ── EMAIL ALL CTA ──────────────────────────────────── */
+.cta-wrap {
+  max-width: 760px;
+  margin: 0 auto 1rem;
+  padding: 0 1.5rem;
+}
+
+.btn-all {
+  display: block;
+  text-align: center;
+  background: var(--pink);
+  color: #fff;
+  text-decoration: none;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: .08em;
+  padding: 1.1rem 2rem;
+  border-radius: 3px;
+  transition: background .15s, box-shadow .15s;
+  box-shadow: 0 0 30px rgba(255,45,107,.25);
+}
+
+.btn-all:hover {
+  background: #e0184f;
+  box-shadow: 0 0 50px rgba(255,45,107,.45);
+}
+
+.cta-note {
+  text-align: center;
+  font-family: 'Space Mono', monospace;
+  font-size: .65rem;
+  color: var(--muted);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-top: .6rem;
+}
+
+/* ── SECTION DIVIDER ────────────────────────────────── */
+.section-head {
+  max-width: 900px;
+  margin: 3rem auto 1.25rem;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.section-head-label {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: .1em;
+  white-space: nowrap;
+}
+
+.section-head-label.inc { color: var(--cyan); }
+.section-head-label.chal { color: var(--yellow); }
+
+.section-head-rule {
+  flex: 1;
+  height: 1px;
+}
+
+.inc-rule { background: linear-gradient(to right, rgba(0,240,255,.4), transparent); }
+.chal-rule { background: linear-gradient(to right, rgba(255,230,0,.4), transparent); }
+
+/* ── CANDIDATE GRID ─────────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: .75rem;
+  max-width: 900px;
+  margin: 0 auto 1rem;
+  padding: 0 1.5rem;
+}
+
+/* ── CARD ───────────────────────────────────────────── */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 3px;
+  padding: 1.1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+  transition: border-color .15s, box-shadow .15s, transform .12s;
+  position: relative;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  border-radius: 3px 0 0 3px;
+}
+
+.card.inc::before { background: var(--cyan); }
+.card.chal::before { background: var(--yellow); }
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+.card.inc:hover  { border-color: rgba(0,240,255,.3); box-shadow: 0 4px 24px rgba(0,240,255,.07); }
+.card.chal:hover { border-color: rgba(255,230,0,.3); box-shadow: 0 4px 24px rgba(255,230,0,.07); }
+
+.card-badge {
+  font-family: 'Space Mono', monospace;
+  font-size: .58rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  width: fit-content;
+}
+
+.card.inc  .card-badge { color: var(--cyan); }
+.card.chal .card-badge { color: var(--yellow); }
+
+.card-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.55rem;
+  letter-spacing: .04em;
+  line-height: 1;
+  color: var(--white);
+}
+
+.card-email {
+  font-family: 'Space Mono', monospace;
+  font-size: .65rem;
+  color: var(--muted);
+  word-break: break-all;
+}
+
+.btn-email {
+  display: block;
+  text-align: center;
+  background: transparent;
+  border: 1.5px solid var(--pink);
+  color: var(--pink);
+  text-decoration: none;
+  font-family: 'Space Mono', monospace;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: .6rem 1rem;
+  border-radius: 2px;
+  margin-top: auto;
+  transition: background .15s, color .15s;
+}
+
+.btn-email:hover {
+  background: var(--pink);
+  color: #fff;
+}
+
+.btn-website {
+  display: block;
+  text-align: center;
+  color: #3A3A5A;
+  text-decoration: none;
+  font-family: 'Space Mono', monospace;
+  font-size: .6rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: .3rem;
+  transition: color .15s;
+}
+
+.btn-website:hover { color: var(--muted); }
+
+/* ── FOOTER ─────────────────────────────────────────── */
+footer {
+  margin-top: 4rem;
+  border-top: 1px solid rgba(255,255,255,.06);
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+}
+
+.footer-tag {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.2rem;
+  color: var(--pink);
+  letter-spacing: .06em;
+  text-shadow: 0 0 30px rgba(255,45,107,.4);
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.footer-meta {
+  font-family: 'Space Mono', monospace;
+  font-size: .62rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #2A2A3A;
+  line-height: 2;
+}
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker">
+  <span class="ticker-inner">
+    ⚡ EARLY VOTING OPEN &nbsp;·&nbsp; JULY 21 PRIMARY &nbsp;·&nbsp; NO WARRANT REQUIRED &nbsp;·&nbsp; $81K/YEAR CONTRACT &nbsp;·&nbsp; ZERO CANDIDATES ON RECORD &nbsp;·&nbsp; DEMAND ANSWERS NOW &nbsp;·&nbsp; YOUR DEVICES BROADCAST YOUR IDENTITY &nbsp;·&nbsp; THEY DON'T GET TO STAY SILENT &nbsp;·&nbsp;
+    ⚡ EARLY VOTING OPEN &nbsp;·&nbsp; JULY 21 PRIMARY &nbsp;·&nbsp; NO WARRANT REQUIRED &nbsp;·&nbsp; $81K/YEAR CONTRACT &nbsp;·&nbsp; ZERO CANDIDATES ON RECORD &nbsp;·&nbsp; DEMAND ANSWERS NOW &nbsp;·&nbsp; YOUR DEVICES BROADCAST YOUR IDENTITY &nbsp;·&nbsp; THEY DON'T GET TO STAY SILENT &nbsp;·&nbsp;
+  </span>
+</div>
+
+<!-- HEADER -->
+<header>
+  <span class="ascii-eye">⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣤⣤⣤⣤⣴⣤⣤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣀⣴⣾⠿⠛⠋⠉⠁⠀⠀⠀⠈⠙⠻⢷⣦⡀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⣤⣾⡿⠋⠁⠀⣠⣶⣿⡿⢿⣷⣦⡀⠀⠀⠀⠀⠀⠙⠿⣦⣀⠀⠀
+⠀⠀⢀⣴⣿⡿⠋⠀⠀⢀⣼⣿⣿⣿⣶⣿⣾⣽⣿⡆⠀⠀⠀⠀⢻⣿⣷⣶⣄⠀
+⠀⣴⣿⣿⠋⠀⠀⠀⠀⠸⣿⣿⣿⣿⣯⣿⣿⣿⣿⣿⠀⠀⠀⠐⡄⡌⢻⣿⣿⡷
+⢸⣿⣿⠃⢂⡋⠄⠀⠀⠀⢿⣿⣿⣿⣿⣿⣯⣿⣿⠏⠀⠀⠀⠀⢦⣷⣿⠿⠛⠁
+⠀⠙⠿⢾⣤⡈⠙⠂⢤⢀⠀⠙⠿⢿⣿⣿⡿⠟⠁⠀⣀⣀⣤⣶⠟⠋⠁⠀⠀⠀
+⠀⠀⠀⠀⠈⠙⠿⣾⣠⣆⣅⣀⣠⣄⣤⣴⣶⣾⣽⢿⠿⠟⠋⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠙⠛⠛⠙⠋⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</span>
+  <p class="header-eyebrow">Gilbert, AZ · Mass Surveillance Alert</p>
+  <h1 class="header-title">
+    <span class="line-1">WHO'S</span>
+    <span class="line-2">WATCHING</span>
+    <span class="line-3">YOU?</span>
+  </h1>
+  <p class="header-sub">Your Car. Your Phone. Your Movements. Without a Warrant.</p>
+  <p class="header-body">Gilbert signed a five-year, $81K/year contract with Flock Safety for automated license plate readers — no warrant needed to search you. An ELSAG firmware update called Signal Trace will turn those same poles into sweepers of your Bluetooth, Wi-Fi, AirPods, TPMS, and RFID signals. None of the 7 candidates running for 4 open seats have gone on record.</p>
+</header>
+
+<!-- EVIDENCE -->
+<div class="evidence-strip">
+  <div class="ev-stat c">
+    <span class="ev-label">The Contract</span>
+    <span class="ev-num">$81K</span>
+    <span class="ev-desc">Per year. 5-year deal. No warrant needed to pull your data.</span>
+  </div>
+  <div class="ev-stat p">
+    <span class="ev-label">Candidate Stance</span>
+    <span class="ev-num">ZERO</span>
+    <span class="ev-desc">All 7 candidates ghosting this topic. None committed to oversight.</span>
+  </div>
+  <div class="ev-stat y">
+    <span class="ev-label">Milwaukee Abuse</span>
+    <span class="ev-num">124×</span>
+    <span class="ev-desc">One officer ran his girlfriend's ex through Flock 124 times in 2 months.</span>
+  </div>
+</div>
+
+<!-- THE QUESTION -->
+<div class="question-section">
+  <span class="question-tag">Force a definitive stance</span>
+  <div class="question-box">
+    <p>"Will you commit to pausing all ALPR and surveillance funding until a public audit is conducted and a warrant requirement is established?"</p>
+  </div>
+</div>
+
+<!-- EMAIL ALL CTA -->
+<div class="cta-wrap">
+  <a class="btn-all" id="emailAll" href="#">✉ FLOOD THEIR INBOX — EMAIL ALL 7 — PRESS HERE</a>
+  <p class="cta-note">Opens a pre-written email to all 7 candidates · Takes 30 seconds · They don't get to stay silent.</p>
+</div>
+
+<!-- INCUMBENTS -->
+<div class="section-head">
+  <span class="section-head-label inc">▶ Incumbents</span>
+  <div class="section-head-rule inc-rule"></div>
+</div>
+<div class="grid" id="incumbents"></div>
+
+<!-- CHALLENGERS -->
+<div class="section-head">
+  <span class="section-head-label chal">▶ Challengers</span>
+  <div class="section-head-rule chal-rule"></div>
+</div>
+<div class="grid" id="challengers"></div>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-tag">Privacy Isn't Optional.</span>
+  <div class="footer-meta">
+    Gilbert Community Privacy Project &nbsp;·&nbsp; Primary Election: July 21, 2025<br>
+    No tracking &nbsp;·&nbsp; No cookies &nbsp;·&nbsp; No data collected
+  </div>
+</footer>
+
+<script>
+const SUBJECT = encodeURIComponent("Demand a Public Stance on Flock/ELSAG Surveillance Before Election Day");
+
+function body(name) {
+  return encodeURIComponent(
+`Dear ${name},
+
+My name is [YOUR NAME] and I am a Gilbert resident.
+
+I am writing to demand a clear, public stance on the Town of Gilbert's five-year, $81,000/year contract with Flock Safety and the pending ELSAG Signal Trace firmware update before the July 21 Primary Election.
+
+These systems represent a serious expansion of mass surveillance. Flock cameras already store vehicle fingerprints and allow police searches with no warrant or probable cause. The ELSAG Signal Trace update would turn existing camera poles into sweepers of Bluetooth, Wi-Fi, TPMS, and RFID signals — building a persistent electronic profile of every resident who drives past one.
+
+Documented abuses include officers using Flock to stalk ex-partners and false citations issued based solely on plate-reader data with no corroborating evidence.
+
+I am asking you directly:
+
+Will you commit to pausing all ALPR and surveillance funding until:
+  1. A full public audit of current Flock usage and access logs is conducted.
+  2. A warrant requirement is established before any data can be queried.
+  3. The ELSAG Signal Trace firmware update is blocked unless independently reviewed by Gilbert residents.
+
+This is not a partisan issue. This is a Fourth Amendment issue. Voters deserve to know your position before they cast a ballot.
+
+Please reply with your public commitment or an explanation of your position.
+
+Sincerely,
+[YOUR NAME]
+[YOUR GILBERT ADDRESS]
+[YOUR EMAIL / PHONE — optional]`
+  );
+}
+
+const incumbents = [
+  { name: "Chuck Bongiovanni", email: "Chuck4Gilbert@gmail.com",       site: "Chuck4Gilbert.com" },
+  { name: "Bobbi Buchli",      email: "Votebobbi4gilbert@gmail.com",   site: "BobbiBuchli4Gilbert.com" },
+  { name: "Jim Torgeson",      email: "j_torgeson@yahoo.com",          site: "JimTorgeson.com" },
+];
+
+const challengers = [
+  { name: "Joel Coen",    email: "joel@votejoelcoen.com",    site: "votejoelcoen.com" },
+  { name: "Beth Goulden", email: "votebethg@gmail.com",      site: "bethgoulden.com" },
+  { name: "Bus Obayomi",  email: "Busola.Obayomi@gmail.com", site: "Busforgilbert.com" },
+  { name: "Bill Spence",  email: "Bill@VoteSpence.com",      site: "VoteSpence.com" },
+];
+
+function renderCard(candidate, type) {
+  const cls = type === "incumbent" ? "inc" : "chal";
+  const label = type === "incumbent" ? "► Incumbent" : "► Challenger";
+  const mailto = `mailto:${candidate.email}?subject=${SUBJECT}&body=${body(candidate.name.split(" ")[0])}`;
+  return `
+    <div class="card ${cls}">
+      <span class="card-badge">${label}</span>
+      <div class="card-name">${candidate.name}</div>
+      <div class="card-email">${candidate.email}</div>
+      <a class="btn-email" href="${mailto}">✉ Send Email</a>
+      <a class="btn-website" href="https://${candidate.site}" target="_blank" rel="noopener">↗ ${candidate.site}</a>
+    </div>`;
+}
+
+document.getElementById("incumbents").innerHTML  = incumbents.map(c => renderCard(c, "incumbent")).join("");
+document.getElementById("challengers").innerHTML = challengers.map(c => renderCard(c, "challenger")).join("");
+
+const allEmails = [...incumbents, ...challengers].map(c => c.email).join(",");
+const allBody = encodeURIComponent(
+`Dear Gilbert Town Council Candidates,
+
+My name is [YOUR NAME] and I am a Gilbert resident writing to all seven candidates seeking the four open council seats in the July 21 Primary Election.
+
+I am demanding a clear, public stance from each of you on the Town's five-year contract with Flock Safety and the ELSAG Signal Trace firmware update before Election Day.
+
+These systems represent mass surveillance of Gilbert residents with no warrant requirement, no public audit, and no oversight. Documented abuses include officers using Flock to stalk ex-partners. The ELSAG update would extend camera poles to sweep Bluetooth, Wi-Fi, TPMS, and RFID signals from every device in passing vehicles.
+
+My question to each of you:
+
+Will you commit to pausing all ALPR and surveillance funding until:
+  1. A full public audit of Flock usage and access logs is completed.
+  2. A warrant requirement is established for all ALPR data queries.
+  3. The ELSAG Signal Trace update is independently reviewed before any activation.
+
+Please reply publicly or privately with your position. Voters deserve an answer before July 21.
+
+Sincerely,
+[YOUR NAME]
+[YOUR GILBERT ADDRESS]`
+);
+
+document.getElementById("emailAll").href =
+  `mailto:${allEmails}?subject=${SUBJECT}&body=${allBody}`;
+</script>
+</body>
+</html>
