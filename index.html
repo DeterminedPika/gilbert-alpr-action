@@ -421,6 +421,139 @@ header::after {
 
 .btn-website:hover { color: var(--muted); }
 
+/* ── TABS ───────────────────────────────────────────── */
+.tabs-section {
+  max-width: 900px;
+  margin: 3rem auto 0;
+  padding: 0 1.5rem;
+}
+
+.tabs-label {
+  font-family: 'Space Mono', monospace;
+  font-size: .65rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tabs-label::before,
+.tabs-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(255,255,255,.07);
+}
+
+.tab-buttons {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 0;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: .75rem 1rem;
+  background: var(--navy);
+  border: 1.5px solid rgba(255,255,255,.08);
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  color: var(--muted);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: .08em;
+  cursor: pointer;
+  transition: background .15s, color .15s, border-color .15s;
+  text-align: center;
+}
+
+.tab-btn:hover { color: var(--white); }
+
+.tab-btn.active-signal {
+  background: var(--card-bg);
+  border-color: rgba(0,240,255,.35);
+  color: var(--cyan);
+  text-shadow: 0 0 16px rgba(0,240,255,.4);
+}
+
+.tab-btn.active-flock {
+  background: var(--card-bg);
+  border-color: rgba(255,45,107,.35);
+  color: var(--pink);
+  text-shadow: 0 0 16px rgba(255,45,107,.4);
+}
+
+.tab-panel {
+  display: none;
+  background: var(--card-bg);
+  padding: 1.75rem;
+  border-radius: 0 0 4px 4px;
+}
+
+.tab-panel.signal-panel {
+  border: 1.5px solid rgba(0,240,255,.25);
+  border-top: none;
+}
+
+.tab-panel.flock-panel {
+  border: 1.5px solid rgba(255,45,107,.25);
+  border-top: none;
+}
+
+.tab-panel.active { display: block; }
+
+.tab-panel-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: .6rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  margin-bottom: .75rem;
+  display: block;
+}
+
+.signal-panel .tab-panel-tag { color: var(--cyan); }
+.flock-panel  .tab-panel-tag { color: var(--pink); }
+
+.tab-panel h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: .06em;
+  margin-bottom: .75rem;
+  line-height: 1.1;
+}
+
+.signal-panel h3 { color: var(--cyan); }
+.flock-panel  h3 { color: var(--pink); }
+
+.tab-panel p {
+  font-size: .95rem;
+  color: #9090B0;
+  line-height: 1.75;
+}
+
+.tab-panel p strong { color: var(--white); }
+
+.tab-source {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,.06);
+  font-family: 'Space Mono', monospace;
+  font-size: .6rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #3A3A5A;
+}
+
+.tab-source a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.tab-source a:hover { color: var(--white); }
+
 /* ── FOOTER ─────────────────────────────────────────── */
 footer {
   margin-top: 4rem;
@@ -489,8 +622,8 @@ footer {
   </div>
   <div class="ev-stat p">
     <span class="ev-label">Candidate Stance</span>
-    <span class="ev-num">ZERO</span>
-    <span class="ev-desc">All 7 candidates ghosting this topic. None committed to oversight.</span>
+    <span class="ev-num">1/7</span>
+    <span class="ev-desc">Bus Obayomi responded. 6 candidates still silent. Keep the pressure on.</span>
   </div>
   <div class="ev-stat y">
     <span class="ev-label">Milwaukee Abuse</span>
@@ -511,6 +644,53 @@ footer {
 <div class="cta-wrap">
   <a class="btn-all" id="emailAll" href="#">✉ FLOOD THEIR INBOX — EMAIL ALL 7 — PRESS HERE</a>
   <p class="cta-note">Opens a pre-written email to all 7 candidates · Takes 30 seconds · They don't get to stay silent.</p>
+</div>
+
+<!-- TABS: LEARN MORE -->
+<div class="tabs-section">
+  <div class="tabs-label">Know what you're up against</div>
+  <div class="tab-buttons">
+    <button class="tab-btn active-signal" onclick="switchTab('signal')">⚡ Signal Trace</button>
+    <button class="tab-btn" onclick="switchTab('flock')">📡 Flock / Raven</button>
+  </div>
+
+  <div class="tab-panel signal-panel active" id="tab-signal">
+    <span class="tab-panel-tag">ELSAG SignalTrace™ — Coming to Gilbert's existing camera poles</span>
+    <h3>Everything You Carry Is About to Become a Tracking Device</h3>
+    <p>
+      The cameras already on Gilbert's streets are getting a software update — no new hardware, just a silent upgrade. Once active, every time you drive past one of those poles it won't just read your license plate. It will scan <strong>everything broadcasting a signal inside your car</strong> and log it permanently. That includes:
+    </p>
+    <ul style="margin:.9rem 0 .9rem 1rem;line-height:2.1;color:#9090B0;font-size:.95rem;">
+      <li>📱 <strong style="color:var(--white)">Your phone</strong> — even with the screen off</li>
+      <li>🎧 <strong style="color:var(--white)">Your AirPods or wireless earbuds</strong></li>
+      <li>⌚ <strong style="color:var(--white)">Your Apple Watch or smartwatch</strong></li>
+      <li>🚗 <strong style="color:var(--white)">Your car's tire sensors</strong> — every car has them</li>
+      <li>🪪 <strong style="color:var(--white)">Your work badge or office key fob</strong></li>
+      <li>🚌 <strong style="color:var(--white)">Your bus pass or transit card</strong></li>
+      <li>🛍️ <strong style="color:var(--white)">Anti-theft tags still on clothes or bags</strong></li>
+      <li>🐾 <strong style="color:var(--white)">Your pet's microchip</strong></li>
+    </ul>
+    <p>
+      All of that gets combined into a unique signature — <em>your</em> signature. It follows you even if you switch cars, cover your plate, or take a rideshare. <strong>The cameras are already there. The update is already patented. No one asked Gilbert residents if this was okay.</strong>
+    </p>
+    <div class="tab-source">
+      Sources: US Patent 12,614,241 B2 (USPTO) &nbsp;·&nbsp;
+      <a href="https://www.chasetactical.com/news/license-plate-readers-move-beyond-plates-to-trackphones-wearables-and-pet-microchips" target="_blank" rel="noopener">404 Media Investigation</a> &nbsp;·&nbsp;
+      <a href="https://www.leonardocompany-us.com/hubfs/LPR/LPR-Product-Sheets/US/Pole-Camera-us.pdf" target="_blank" rel="noopener">Leonardo ELSAG Product Sheet</a>
+    </div>
+  </div>
+
+  <div class="tab-panel flock-panel" id="tab-flock">
+    <span class="tab-panel-tag">Flock Safety · Raven Network · Gilbert Contract</span>
+    <h3>The Dragnet Already Running in Your Neighborhood</h3>
+    <p>
+      Flock Safety's ALPR network — which Gilbert signed a <strong>five-year, $81,000/year contract</strong> for — already captures billions of plate scans nationwide and stores a detailed vehicle fingerprint for every car it sees: make, model, color, roof racks, bumper stickers, and GPS timestamp. <strong>No warrant. No probable cause. No judicial oversight.</strong> Any enrolled officer can query your movement history by typing a single word as justification. The Raven fixed-wing drone network extends this to aerial surveillance, coordinating with ground-based Flock readers to track vehicles across entire counties. The documented abuse is not theoretical — in Milwaukee, an officer ran a private citizen through the system 124 times in two months; in Florida, an officer used it to stalk an ex-girlfriend 69 times and organize a physical stakeout; in Colorado, a woman was cited for theft purely based on proximity data, with no other evidence gathered. <strong>Gilbert has no public audit, no data retention limit, and no warrant requirement on the books.</strong>
+    </p>
+    <div class="tab-source">
+      Sources: Gilbert Town Contract Records &nbsp;·&nbsp; Documented abuse cases: Milwaukee PD, Florida IA, Colorado DA &nbsp;·&nbsp;
+      <a href="https://www.carpro.com/blog/the-next-privacy-concern-license-plate-readers-that-can-trackyour-phone-and-other-devices" target="_blank" rel="noopener">CarPro Privacy Briefing</a>
+    </div>
+  </div>
 </div>
 
 <!-- INCUMBENTS -->
@@ -537,6 +717,17 @@ footer {
 </footer>
 
 <script>
+function switchTab(tab) {
+  document.getElementById('tab-signal').classList.remove('active');
+  document.getElementById('tab-flock').classList.remove('active');
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.remove('active-signal', 'active-flock');
+  });
+  document.getElementById('tab-' + tab).classList.add('active');
+  const btns = document.querySelectorAll('.tab-btn');
+  if (tab === 'signal') btns[0].classList.add('active-signal');
+  else btns[1].classList.add('active-flock');
+}
 const SUBJECT = encodeURIComponent("Demand a Public Stance on Flock/ELSAG Surveillance Before Election Day");
 
 function body(name) {
@@ -578,7 +769,8 @@ const incumbents = [
 const challengers = [
   { name: "Joel Coen",    email: "joel@votejoelcoen.com",    site: "votejoelcoen.com" },
   { name: "Beth Goulden", email: "votebethg@gmail.com",      site: "bethgoulden.com" },
-  { name: "Bus Obayomi",  email: "Busola.Obayomi@gmail.com", site: "Busforgilbert.com" },
+  { name: "Bus Obayomi",  email: "Busola.Obayomi@gmail.com", site: "Busforgilbert.com", responded: true,
+    response: "Supports a public review of ALPR tech including access controls, usage logs, data retention, audit practices, and vendor agreements. Supports clear safeguards on who can access data, for what purpose, and how misuse is disciplined. States: \"no surveillance technology should be expanded or upgraded without public transparency, independent review, and strong civil-liberty protections.\"" },
   { name: "Bill Spence",  email: "Bill@VoteSpence.com",      site: "VoteSpence.com" },
 ];
 
@@ -586,12 +778,19 @@ function renderCard(candidate, type) {
   const cls = type === "incumbent" ? "inc" : "chal";
   const label = type === "incumbent" ? "► Incumbent" : "► Challenger";
   const mailto = `mailto:${candidate.email}?subject=${SUBJECT}&body=${body(candidate.name.split(" ")[0])}`;
+  const respondedBadge = candidate.responded ? `<span style="display:inline-block;margin-bottom:.4rem;background:rgba(0,240,255,.1);border:1px solid rgba(0,240,255,.3);color:#00F0FF;font-family:'Space Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:2px;">✓ Responded</span>` : '';
+  const responseBlock = candidate.responded ? `<div style="margin:.5rem 0;padding:.75rem;background:rgba(0,240,255,.04);border-left:2px solid rgba(0,240,255,.3);font-size:.78rem;color:#8080A0;line-height:1.6;font-style:italic;">"${candidate.response}"</div>` : '';
+  const emailBtn = candidate.responded
+    ? `<a class="btn-email" style="border-color:#FFE600;color:#FFE600;" href="${mailto}">✉ Follow Up</a>`
+    : `<a class="btn-email" href="${mailto}">✉ Send Email</a>`;
   return `
-    <div class="card ${cls}">
+    <div class="card ${cls}" ${candidate.responded ? 'style="border-color:rgba(0,240,255,.2);"' : ''}>
       <span class="card-badge">${label}</span>
+      ${respondedBadge}
       <div class="card-name">${candidate.name}</div>
       <div class="card-email">${candidate.email}</div>
-      <a class="btn-email" href="${mailto}">✉ Send Email</a>
+      ${responseBlock}
+      ${emailBtn}
       <a class="btn-website" href="https://${candidate.site}" target="_blank" rel="noopener">↗ ${candidate.site}</a>
     </div>`;
 }
