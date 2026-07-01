@@ -536,7 +536,84 @@ header::after {
 
 .tab-panel p strong { color: var(--white); }
 
-.tab-source {
+.tab-btn.active-protect {
+  background: var(--card-bg);
+  border-color: rgba(255,230,0,.35);
+  color: var(--yellow);
+  text-shadow: 0 0 16px rgba(255,230,0,.4);
+}
+
+.tab-panel.protect-panel {
+  border: 1.5px solid rgba(255,230,0,.25);
+  border-top: none;
+}
+
+.protect-panel .tab-panel-tag { color: var(--yellow); }
+.protect-panel h3 { color: var(--yellow); }
+
+.protect-tip {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: .85rem 0;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+}
+
+.protect-tip:last-of-type { border-bottom: none; }
+
+.protect-tip-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  margin-top: .1rem;
+}
+
+.protect-tip-text strong {
+  display: block;
+  color: var(--white);
+  font-size: .95rem;
+  margin-bottom: .2rem;
+}
+
+.protect-tip-text span {
+  color: #8080A0;
+  font-size: .85rem;
+  line-height: 1.6;
+}
+
+.protect-resource {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  margin-top: 1.25rem;
+  padding: 1rem;
+  background: rgba(255,230,0,.04);
+  border: 1px solid rgba(255,230,0,.2);
+  border-radius: 3px;
+}
+
+.protect-resource-label {
+  font-family: 'Space Mono', monospace;
+  font-size: .6rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--yellow);
+}
+
+.protect-resource a {
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: .95rem;
+  transition: color .15s;
+}
+
+.protect-resource a:hover { color: var(--yellow); }
+
+.protect-resource p {
+  color: #8080A0;
+  font-size: .82rem;
+  line-height: 1.6;
+}
   margin-top: 1.25rem;
   padding-top: 1rem;
   border-top: 1px solid rgba(255,255,255,.06);
@@ -622,8 +699,8 @@ footer {
   </div>
   <div class="ev-stat p">
     <span class="ev-label">Candidate Stance</span>
-    <span class="ev-num">3/7</span>
-    <span class="ev-desc">Chuck Bongiovanni, Bus Obayomi & Beth Goulden responded. 4 candidates still silent.</span>
+    <span class="ev-num">4/7</span>
+    <span class="ev-desc">Chuck Bongiovanni, Bus Obayomi, Beth Goulden & Bill Spence responded. 3 candidates still silent.</span>
   </div>
   <div class="ev-stat y">
     <span class="ev-label">Milwaukee Abuse</span>
@@ -652,6 +729,7 @@ footer {
   <div class="tab-buttons">
     <button class="tab-btn active-signal" onclick="switchTab('signal')">⚡ Signal Trace</button>
     <button class="tab-btn" onclick="switchTab('flock')">📡 Flock / Raven</button>
+    <button class="tab-btn" onclick="switchTab('protect')">🛡️ What Can I Do?!?</button>
   </div>
 
   <div class="tab-panel signal-panel active" id="tab-signal">
@@ -691,9 +769,65 @@ footer {
       <a href="https://www.carpro.com/blog/the-next-privacy-concern-license-plate-readers-that-can-trackyour-phone-and-other-devices" target="_blank" rel="noopener">CarPro Privacy Briefing</a>
     </div>
   </div>
-</div>
 
-<!-- INCUMBENTS -->
+  <div class="tab-panel protect-panel" id="tab-protect">
+    <span class="tab-panel-tag">Quick tips — stuff you can do right now</span>
+    <h3>You're Not Powerless. Here's What To Do.</h3>
+
+    <div class="protect-tip">
+      <div class="protect-tip-icon">📵</div>
+      <div class="protect-tip-text">
+        <strong>Turn off Bluetooth and Wi-Fi while driving</strong>
+        <span>Your phone constantly broadcasts signals looking for networks and devices to connect to — even with the screen off. Turning both off while you're in the car cuts off one of the main ways Signal Trace would fingerprint you. On iPhone: Control Center. On Android: pull down the quick settings bar.</span>
+      </div>
+    </div>
+
+    <div class="protect-tip">
+      <div class="protect-tip-icon">🏷️</div>
+      <div class="protect-tip-text">
+        <strong>Check your bags and clothes for retail RFID tags</strong>
+        <span>Those little anti-theft stickers and tags on new clothes, shoes, and bags broadcast a signal even after you buy them. If they weren't removed at checkout, they're still transmitting. Check your backpack, gym bag, jacket — cut or peel them off.</span>
+      </div>
+    </div>
+
+    <div class="protect-tip">
+      <div class="protect-tip-icon">🪪</div>
+      <div class="protect-tip-text">
+        <strong>Keep your work badge and key fob in your bag or console</strong>
+        <span>Corporate access badges and key fobs use RFID — the same tech in transit cards. Leaving them on your dashboard or seat puts their signal in easy range of roadside scanners. Toss them in a bag, glove box, or a signal-blocking sleeve (cheap on Amazon).</span>
+      </div>
+    </div>
+
+    <div class="protect-tip">
+      <div class="protect-tip-icon">🎧</div>
+      <div class="protect-tip-text">
+        <strong>Put your earbuds in their case while driving</strong>
+        <span>AirPods, Galaxy Buds, and most wireless earbuds broadcast a unique Bluetooth identifier even when not in your ears. Case them up — when the lid is closed, they stop broadcasting.</span>
+      </div>
+    </div>
+
+    <div class="protect-tip">
+      <div class="protect-tip-icon">🗳️</div>
+      <div class="protect-tip-text">
+        <strong>Vote July 21 — early voting is open right now</strong>
+        <span>Four seats are open. Four candidates have already gone on record. The three who haven't answered are making a choice too. Your vote is the most direct tool you have.</span>
+      </div>
+    </div>
+
+    <div class="protect-resource">
+      <span class="protect-resource-label">🔍 See where the cameras are in Gilbert</span>
+      <a href="https://www.defrock.org" target="_blank" rel="noopener">defrock.org</a>
+      <p>An independent map showing where Flock cameras are deployed. Gilbert candidate Bill Spence flagged this in his response — cameras are concentrated around commercial areas, Home Depot, Lowe's, and downtown parking. See exactly what's watching your neighborhood.</p>
+    </div>
+
+    <div class="protect-resource">
+      <span class="protect-resource-label">🔍 Another camera map tool</span>
+      <a href="https://www.deflock.me" target="_blank" rel="noopener">deflock.me</a>
+      <p>A crowdsourced map of Flock Safety camera locations submitted by people across the country. You can look up Gilbert specifically and contribute sightings in your area.</p>
+    </div>
+
+  </div>
+</div>
 <div class="section-head">
   <span class="section-head-label inc">▶ Incumbents</span>
   <div class="section-head-rule inc-rule"></div>
@@ -718,15 +852,17 @@ footer {
 
 <script>
 function switchTab(tab) {
-  document.getElementById('tab-signal').classList.remove('active');
-  document.getElementById('tab-flock').classList.remove('active');
+  ['signal','flock','protect'].forEach(t => {
+    document.getElementById('tab-' + t).classList.remove('active');
+  });
   document.querySelectorAll('.tab-btn').forEach(b => {
-    b.classList.remove('active-signal', 'active-flock');
+    b.classList.remove('active-signal', 'active-flock', 'active-protect');
   });
   document.getElementById('tab-' + tab).classList.add('active');
   const btns = document.querySelectorAll('.tab-btn');
-  if (tab === 'signal') btns[0].classList.add('active-signal');
-  else btns[1].classList.add('active-flock');
+  if (tab === 'signal')  btns[0].classList.add('active-signal');
+  if (tab === 'flock')   btns[1].classList.add('active-flock');
+  if (tab === 'protect') btns[2].classList.add('active-protect');
 }
 const SUBJECT = encodeURIComponent("Demand a Public Stance on Flock/ELSAG Surveillance Before Election Day");
 
@@ -773,7 +909,8 @@ const challengers = [
     response: "\"Public safety and the protection of individual constitutional rights are not mutually exclusive — they must go hand in hand. I insist that any surveillance technology used by Gilbert is subject to transparency, accountability, and appropriate oversight. Before any significant expansion, including the ELSAG Signal Trace firmware update, the Town should conduct a transparent public review. I intend to review the policies and practices to ensure the privacy and rights of citizens are protected.\"" },
   { name: "Bus Obayomi",  email: "Busola.Obayomi@gmail.com", site: "Busforgilbert.com", responded: true,
     response: "Supports a public review of ALPR tech including access controls, usage logs, data retention, audit practices, and vendor agreements. Supports clear safeguards on who can access data, for what purpose, and how misuse is disciplined. States: \"no surveillance technology should be expanded or upgraded without public transparency, independent review, and strong civil-liberty protections.\"" },
-  { name: "Bill Spence",  email: "Bill@VoteSpence.com",      site: "VoteSpence.com" },
+  { name: "Bill Spence",  email: "Bill@VoteSpence.com",      site: "VoteSpence.com", responded: true,
+    response: "\"Just at face value, I WOULD NOT have voted in favor of either Flock contract. There was not enough detail provided to ensure protection of privacy or prevent system abuse. The lack of policy alone is the primary reason I would demand a moratorium. I feel the ELSAG update would violate the contract terms and I would demand the Town cancel the Flock contracts immediately. To answer directly — 1. Public audit: YES. 2. Warrant requirement: YES. 3. ELSAG Signal Trace independent review: YES. I am also willing to champion these efforts at the state level.\"" },
 ];
 
 function renderCard(candidate, type) {
