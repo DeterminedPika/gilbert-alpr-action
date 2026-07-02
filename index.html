@@ -699,8 +699,8 @@ footer {
   </div>
   <div class="ev-stat p">
     <span class="ev-label">Candidate Stance</span>
-    <span class="ev-num">4/7</span>
-    <span class="ev-desc">Chuck Bongiovanni, Bus Obayomi, Beth Goulden & Bill Spence responded. 3 candidates still silent.</span>
+    <span class="ev-num">5/7</span>
+    <span class="ev-desc">Chuck, Bus, Beth, Bill & Joel responded. 2 candidates still silent: Bobbi Buchli & Jim Torgeson.</span>
   </div>
   <div class="ev-stat y">
     <span class="ev-label">Milwaukee Abuse</span>
@@ -898,19 +898,20 @@ Sincerely,
 
 const incumbents = [
   { name: "Chuck Bongiovanni", email: "Chuck4Gilbert@gmail.com", site: "Chuck4Gilbert.com", responded: true,
-    response: "\"I will commit to pausing all ALPR and surveillance funding until: 1. A full public audit of Flock usage and access logs is completed. 2. A limited warrant requirement is established for all ALPR data queries. 3. The ELSAG Signal Trace update is independently reviewed before any activation.\"" },
+    response: "Committed to pausing all ALPR and surveillance funding until three conditions are met: a full public audit of Flock usage and access logs is completed, a limited warrant requirement is established for all ALPR data queries, and the ELSAG Signal Trace update is independently reviewed before any activation. Noted a concern about timing, citing a past case where the technology helped locate a suspect." },
   { name: "Bobbi Buchli",      email: "Votebobbi4gilbert@gmail.com",   site: "BobbiBuchli4Gilbert.com" },
   { name: "Jim Torgeson",      email: "j_torgeson@yahoo.com",          site: "JimTorgeson.com" },
 ];
 
 const challengers = [
-  { name: "Joel Coen",    email: "joel@votejoelcoen.com",    site: "votejoelcoen.com" },
+  { name: "Joel Coen",    email: "joel@votejoelcoen.com",    site: "votejoelcoen.com", responded: true,
+    response: "Supports regular audits of Flock usage and access logs. On the warrant requirement: opposes a blanket requirement but supports strict purpose limitations, where every search must have a verified public-safety reason recorded with it. On Signal Trace: agrees it warrants intense scrutiny and says he would insist on an independent review and robust public discussion before any activation or funding of the update in Gilbert." },
   { name: "Beth Goulden", email: "votebethg@gmail.com",      site: "bethgoulden.com", responded: true,
-    response: "\"Public safety and the protection of individual constitutional rights are not mutually exclusive — they must go hand in hand. I insist that any surveillance technology used by Gilbert is subject to transparency, accountability, and appropriate oversight. Before any significant expansion, including the ELSAG Signal Trace firmware update, the Town should conduct a transparent public review. I intend to review the policies and practices to ensure the privacy and rights of citizens are protected.\"" },
+    response: "Says public safety and constitutional rights must go hand in hand, and insists any surveillance technology used by Gilbert be subject to transparency, accountability, and appropriate oversight. Supports a public review of the Town's ALPR use, and says that before any significant expansion — including the ELSAG Signal Trace update — the Town should conduct a transparent public review. As a former law enforcement professional, intends to review the policies and practices to ensure residents' privacy and rights are protected." },
   { name: "Bus Obayomi",  email: "Busola.Obayomi@gmail.com", site: "Busforgilbert.com", responded: true,
-    response: "Supports a public review of ALPR tech including access controls, usage logs, data retention, audit practices, and vendor agreements. Supports clear safeguards on who can access data, for what purpose, and how misuse is disciplined. States: \"no surveillance technology should be expanded or upgraded without public transparency, independent review, and strong civil-liberty protections.\"" },
+    response: "Supports a public review of the Town's ALPR technology, including access controls, usage logs, data retention, audit practices, vendor agreements, and any new firmware or capability updates before activation. Supports clear safeguards on who can access data, for what purpose, how long it's retained, and how misuse is prevented or disciplined. Says no surveillance technology should be expanded or upgraded without public transparency, independent review, and strong civil-liberty protections, but wants to review the facts and hear from police, legal counsel, and residents before a blanket commitment." },
   { name: "Bill Spence",  email: "Bill@VoteSpence.com",      site: "VoteSpence.com", responded: true,
-    response: "\"Just at face value, I WOULD NOT have voted in favor of either Flock contract. There was not enough detail provided to ensure protection of privacy or prevent system abuse. The lack of policy alone is the primary reason I would demand a moratorium. I feel the ELSAG update would violate the contract terms and I would demand the Town cancel the Flock contracts immediately. To answer directly — 1. Public audit: YES. 2. Warrant requirement: YES. 3. ELSAG Signal Trace independent review: YES. I am also willing to champion these efforts at the state level.\"" },
+    response: "Says he would not have voted for either Flock contract, citing insufficient detail to protect privacy or prevent abuse, and points to the lack of any use policy as his primary reason for demanding a moratorium. Believes the ELSAG update would violate the contract terms and says he would demand the Town cancel the Flock contracts immediately. Answered all three questions with a direct yes — public audit, warrant requirement, and independent review of Signal Trace before activation — and says he's willing to champion these protections at the state level." },
 ];
 
 function renderCard(candidate, type) {
@@ -918,7 +919,7 @@ function renderCard(candidate, type) {
   const label = type === "incumbent" ? "► Incumbent" : "► Challenger";
   const mailto = `mailto:${candidate.email}?subject=${SUBJECT}&body=${body(candidate.name.split(" ")[0])}`;
   const respondedBadge = candidate.responded ? `<span style="display:inline-block;margin-bottom:.4rem;background:rgba(0,240,255,.1);border:1px solid rgba(0,240,255,.3);color:#00F0FF;font-family:'Space Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:2px;">✓ Responded</span>` : '';
-  const responseBlock = candidate.responded ? `<div style="margin:.5rem 0;padding:.75rem;background:rgba(0,240,255,.04);border-left:2px solid rgba(0,240,255,.3);font-size:.78rem;color:#8080A0;line-height:1.6;font-style:italic;">"${candidate.response}"</div>` : '';
+  const responseBlock = candidate.responded ? `<div style="margin:.5rem 0;padding:.75rem;background:rgba(0,240,255,.04);border-left:2px solid rgba(0,240,255,.3);font-size:.78rem;color:#8080A0;line-height:1.6;"><span style="display:block;font-family:'Space Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:#00F0FF;margin-bottom:.4rem;">Summary of their response</span>${candidate.response}</div>` : '';
   const emailBtn = candidate.responded
     ? `<a class="btn-email" style="border-color:#FFE600;color:#FFE600;" href="${mailto}">✉ Follow Up</a>`
     : `<a class="btn-email" href="${mailto}">✉ Send Email</a>`;
