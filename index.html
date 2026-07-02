@@ -631,6 +631,79 @@ header::after {
 
 .tab-source a:hover { color: var(--white); }
 
+/* ── RESOURCES ──────────────────────────────────────── */
+.resources-section {
+  max-width: 900px;
+  margin: 3.5rem auto 0;
+  padding: 0 1.5rem;
+}
+
+.resources-head {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: .08em;
+  color: var(--cyan);
+  margin-bottom: .35rem;
+  text-shadow: 0 0 20px rgba(0,240,255,.3);
+}
+
+.resources-intro {
+  font-size: .88rem;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.resource-group-label {
+  font-family: 'Space Mono', monospace;
+  font-size: .62rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin: 1.5rem 0 .75rem;
+}
+
+.resource-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: .6rem;
+}
+
+.resource-card {
+  display: block;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-left: 3px solid var(--cyan);
+  border-radius: 3px;
+  padding: .85rem 1rem;
+  text-decoration: none;
+  transition: border-color .15s, transform .12s, box-shadow .15s;
+}
+
+.resource-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(0,240,255,.3);
+  box-shadow: 0 4px 20px rgba(0,240,255,.06);
+}
+
+.resource-card .r-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: .95rem;
+  color: var(--white);
+  margin-bottom: .2rem;
+  display: block;
+}
+
+.resource-card .r-desc {
+  font-size: .78rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.resource-card.video { border-left-color: var(--pink); }
+.resource-card.video:hover { border-color: rgba(255,45,107,.3); box-shadow: 0 4px 20px rgba(255,45,107,.06); }
+
 /* ── FOOTER ─────────────────────────────────────────── */
 footer {
   margin-top: 4rem;
@@ -840,6 +913,44 @@ footer {
   <div class="section-head-rule chal-rule"></div>
 </div>
 <div class="grid" id="challengers"></div>
+
+<!-- RESOURCES -->
+<div class="resources-section">
+  <div class="resources-head">Resources & Tools</div>
+  <p class="resources-intro">Independent tools and reporting to help you understand, map, and push back against ALPR surveillance.</p>
+
+  <div class="resource-group-label">Tools & Maps</div>
+  <div class="resource-links">
+    <a class="resource-card" href="https://deflock.me" target="_blank" rel="noopener">
+      <span class="r-name">DeFlock ↗</span>
+      <span class="r-desc">Crowdsourced map of Flock camera locations. Look up Gilbert and report cameras in your area.</span>
+    </a>
+    <a class="resource-card" href="https://dontgetflocked.com" target="_blank" rel="noopener">
+      <span class="r-name">FlockHopper ↗</span>
+      <span class="r-desc">Free iOS app that plans driving routes to avoid known ALPR cameras. No tracking, no subscription.</span>
+    </a>
+    <a class="resource-card" href="https://stopflock.com" target="_blank" rel="noopener">
+      <span class="r-name">Stop Flock ↗</span>
+      <span class="r-desc">Advocacy hub with "Have I Been Flocked?" — check if your plate appeared in FOIA-obtained Flock query logs.</span>
+    </a>
+    <a class="resource-card" href="https://defrock.org" target="_blank" rel="noopener">
+      <span class="r-name">DeFrock ↗</span>
+      <span class="r-desc">Another camera-location map — the one Bill Spence referenced showing cameras around Gilbert commercial areas.</span>
+    </a>
+  </div>
+
+  <div class="resource-group-label">Reading & Reporting</div>
+  <div class="resource-links">
+    <a class="resource-card" href="https://www.eff.org/deeplinks/2025/02/anti-surveillance-mapmaker-refuses-flock-safetys-cease-and-desist-demand" target="_blank" rel="noopener">
+      <span class="r-name">EFF: DeFlock vs Flock Safety ↗</span>
+      <span class="r-desc">The Electronic Frontier Foundation on how the DeFlock mapmaker refused Flock's cease-and-desist demand.</span>
+    </a>
+    <a class="resource-card" href="https://www.techrepublic.com/article/news-leonardo-signaltrace-alpr-device-tracking/" target="_blank" rel="noopener">
+      <span class="r-name">TechRepublic: SignalTrace ↗</span>
+      <span class="r-desc">How Leonardo's SignalTrace could track phones, AirPods, and smartwatches through existing cameras.</span>
+    </a>
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer>
